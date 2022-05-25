@@ -1,4 +1,13 @@
 ## Wallet
+```json
+{
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer 1|MRXAfie54ZeXfH3Ju5v6diCoetLzfv4zRf9OkUX3"
+  }
+}
+```
 ### Index
 ```
 [GET|HEAD]: api/v1/wallet
