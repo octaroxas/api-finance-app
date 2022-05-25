@@ -11,7 +11,8 @@ class Wallet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'account_id'
     ];
 
     public function transactions(): HasMany

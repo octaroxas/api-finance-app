@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class SessionController
 {
@@ -13,7 +13,7 @@ class SessionController
         $credentials = $request->only(['email', 'password']);
 
         if (!auth()->attempt($credentials))
-            return response()->noContent(401);
+            return response()->noContent(Response::HTTP_UNAUTHORIZED);
 
         $user = User::find(auth()->user()->id);
         $token = $user->createToken('access_token')->plainTextToken;
@@ -24,6 +24,6 @@ class SessionController
     public function destory(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        return response()->noContent(200);
+        return response()->noContent(Response::HTTP_OK);
     }
 }

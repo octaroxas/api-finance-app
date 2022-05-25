@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use Exception;
 use App\Actions\User\CreateUser;
 use App\Http\Requests\Auth\RegisterRequest;
-use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisteredUserController
 {
@@ -14,11 +15,11 @@ class RegisteredUserController
             $user = $action->handle($request->name, $request->email, $request->password);
             $account = $user->account;
             $token = $user->createToken('access_token')->plainTextToken;
-            return response()->json(compact('user', 'account', 'token'));
-        } catch (Exception $ex) {
+            return response()->json(compact('user', 'account', 'token'), Response::HTTP_OK);
+        } catch (Exception $e) {
             return response()->json([
-                'message' => $ex->getMessage(),
-            ], 400);
+                'message' => $e->getMessage(),
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 }

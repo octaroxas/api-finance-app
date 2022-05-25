@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\Auth\RegisteredUserController;
 use App\Http\Controllers\API\Auth\SessionController;
 use App\Http\Controllers\API\Transaction\TransactionController;
+use App\Http\Controllers\API\Wallet\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::prefix('v1')->group(function () {
 
         Route::post('logout', [SessionController::class, 'destory'])->name('session.destory');
 
-        Route::apiResource('wallet', TransactionController::class);
+        Route::apiResource('wallet', WalletController::class);
         Route::apiResource('transaction', TransactionController::class);
 
     });
