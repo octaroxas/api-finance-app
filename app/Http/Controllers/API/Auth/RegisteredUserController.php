@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Actions\User\CreateUser;
+use App\Http\Requests\Auth\RegisterRequest;
+use Exception;
 
 class RegisteredUserController
 {
-    public function store(Request $request)
+    public function store(RegisterRequest $request, CreateUser $action)
     {
-        $user = User::create($request->all());
-
-        $user->account()->create($request->all());
-
-        $token = $user->createToken('access_token')->plainTextToken;
-
-        return response()->json(compact('user', 'token'));
+        try {
+            $user = $action->handle($request->name, $request->email, $request->password);
+            $account = $user->account;
+            $token = $user->createToken('access_token')->plainTextToken;
+            return response()->json(compact('user', 'account', 'token'));
+        } catch (Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage(),
+            ], 400);
+        }
     }
 }

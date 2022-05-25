@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\RegisteredUserController;
 use App\Http\Controllers\API\Auth\SessionController;
 use App\Http\Controllers\API\Transaction\TransactionController;
 use Illuminate\Http\Request;
@@ -21,8 +22,14 @@ Route::prefix('v1')->group(function () {
 
     Route::post('login', [SessionController::class, 'store'])->name('session.store');
 
-    Route::middleware('auth:sanctum')->group(function() {
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register.store');
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::post('logout', [SessionController::class, 'destory'])->name('session.destory');
+
         Route::apiResource('wallet', TransactionController::class);
         Route::apiResource('transaction', TransactionController::class);
+
     });
 });
