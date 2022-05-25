@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\SessionController;
 use App\Http\Controllers\API\Transaction\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
+    Route::post('login', [SessionController::class, 'store'])->name('session.store');
+
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::apiResource('wallet', TransactionController::class);
+        Route::apiResource('transaction', TransactionController::class);
     });
-    Route::apiResource('transaction', TransactionController::class);
 });

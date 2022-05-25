@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->boolean('done');
             $table->foreignIdFor(App\Models\Category::class)->constrained();
+            $table->foreignIdFor(App\Models\Wallet::class)->constrained();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Transaction;
 
+use App\Actions\Transactions\CreateTransaction;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class TransactionController
         // TODO: implemente o método index
     }
 
-    public function store(Request $request)
+    public function store(Request $request, CreateTransaction $action)
     {
-        // TODO: implemente o método store
+        $action->handle();
     }
 
     public function show(Transaction $transaction)
