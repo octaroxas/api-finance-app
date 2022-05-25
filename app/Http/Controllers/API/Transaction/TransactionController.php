@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\API\Transaction;
 
 use App\Actions\Transactions\CreateTransaction;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\WalletWithTransactionsResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TransactionController
+class TransactionController extends Controller
 {
     public function index()
     {
-        // TODO: implemente o método index
+        $account = \request()->user()->account;
+        $wallets = $account->wallets;
+        return \response()->json(WalletWithTransactionsResource::collection($wallets), Response::HTTP_OK);
     }
 
     public function store(Request $request, CreateTransaction $action)

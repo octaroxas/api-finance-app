@@ -19,25 +19,29 @@ class WalletController
     public function store(Request $request)
     {
         $account = \request()->user()->account;
+
         $wallet = Wallet::create(array_merge(
             $request->only('name'),
             ['account_id' => $account->id]
         ));
-        return response()->json(compact('wallet'), Response::HTTP_CREATED);
+
+        return response()->json(WalletResource::make($wallet), Response::HTTP_CREATED);
     }
 
     public function show(Wallet $wallet)
     {
-        // TODO: implemente o método show
+        return response()->json(WalletResource::make($wallet), Response::HTTP_OK);
     }
 
     public function update(Wallet $wallet, Request $request)
     {
-        // TODO: implemente o método update
+        $wallet = $wallet->update($request->all());
+        return \response()->json(WalletResource::make($wallet), Response::HTTP_OK);
     }
 
     public function destroy(Wallet $wallet)
     {
-        // TODO: implemente o método destroy
+        $wallet->delete();
+        return \response()->noContent(Response::HTTP_OK);
     }
 }

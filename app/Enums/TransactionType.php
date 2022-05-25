@@ -7,7 +7,7 @@ enum TransactionType: string
     case INCOME = 'income';
     case EXPENSE = 'expense';
 
-    public function display()
+    public function display(): string
     {
         return match ($this) {
             self::INCOME => 'Rendimento',
