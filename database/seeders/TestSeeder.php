@@ -18,11 +18,11 @@ class TestSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'email' => 'ian@ianbrito.com.br',
+            'email' => 'user@finance.ianbrito.com.br',
             'password' => bcrypt('password')
         ]);
 
-        $account = $user->account()->create(['name' => 'Ian Azevedo']);
+        $account = $user->account()->create(['name' => 'João Pedro']);
 
         $wallet = Wallet::create([
             'name' => 'Carteira Padrão',

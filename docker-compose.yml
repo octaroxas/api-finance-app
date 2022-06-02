@@ -1,5 +1,7 @@
 version: "3"
 
+# author: Ian Azevedo <ian@ianbrito.com.br>
+
 services:
   app:
     build:
@@ -18,7 +20,7 @@ services:
       - TZ=America/Santarem
     networks:
       finance-api:
-        ipv4_address: 172.16.12.2
+        ipv4_address: 172.16.10.2
   db:
     image: postgres:13
     ports:
@@ -32,14 +34,14 @@ services:
       - .docker/dbdata:/var/lib/postgresql/data
     networks:
       finance-api:
-        ipv4_address: 172.16.12.3
+        ipv4_address: 172.16.10.3
 
   nginx:
     image: nginx:alpine
     container_name: finance-api-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
@@ -47,11 +49,11 @@ services:
       - TZ=America/Santarem
     networks:
       finance-api:
-        ipv4_address: 172.16.12.4
+        ipv4_address: 172.16.10.4
 
 networks:
   finance-api:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.16.12.0/28
+        - subnet: 172.16.10.0/28
