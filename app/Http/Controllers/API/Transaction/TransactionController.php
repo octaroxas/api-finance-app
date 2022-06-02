@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Transaction;
 
 use App\Actions\Transactions\CreateTransaction;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 use App\Http\Resources\WalletWithTransactionsResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class TransactionController extends Controller
     {
         $account = \request()->user()->account;
         $wallets = $account->wallets;
-        return \response()->json(WalletWithTransactionsResource::collection($wallets), Response::HTTP_OK);
+        return response()->json(WalletWithTransactionsResource::collection($wallets), Response::HTTP_OK);
     }
 
     public function store(Request $request, CreateTransaction $action)
@@ -26,16 +27,18 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction)
     {
-        // TODO: implemente o método show
+        return response()->json(TransactionResource::make($transaction), Response::HTTP_OK);
     }
 
     public function update(Transaction $transaction, Request $request)
     {
-        // TODO: implemente o método update
+        $transaction->update($request->all());
+        return response()->json(TransactionResource::make($transaction), Response::HTTP_OK);
     }
 
     public function destroy(Transaction $transaction)
     {
-        // TODO: implemente o método destroy
+        $transaction->delete();
+        return response()->noContent(Response::HTTP_OK);
     }
 }
