@@ -1,7 +1,7 @@
 ## AUTH
 ### REGISTER
 ```
-[POST]: api/v1/login
+[POST]: api/v1/register
 ```
 Body:
 
