@@ -16,9 +16,10 @@ class SessionController
             return response()->noContent(Response::HTTP_UNAUTHORIZED);
 
         $user = User::find(auth()->user()->id);
+        $account = $user->account;
         $token = $user->createToken('access_token')->plainTextToken;
 
-        return response()->json(compact('user', 'token'));
+        return response()->json(compact('user', 'account', 'token'));
     }
 
     public function destory(Request $request)

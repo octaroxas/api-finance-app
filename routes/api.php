@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Account\AccountController;
 use App\Http\Controllers\API\Auth\RegisteredUserController;
 use App\Http\Controllers\API\Auth\SessionController;
 use App\Http\Controllers\API\Transaction\TransactionController;
@@ -31,6 +32,6 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('wallet', WalletController::class);
         Route::apiResource('transaction', TransactionController::class);
-
+        Route::apiResource('account', AccountController::class)->except(['index', 'destroy']);
     });
 });
