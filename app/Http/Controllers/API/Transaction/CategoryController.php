@@ -2,35 +2,40 @@
 
 namespace App\Http\Controllers\API\Transaction;
 
-use App\Http\Controllers\Controller;
-use App\Models\Transaction;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        // TODO: implemente o método index
+        $categories = Category::all(['id', 'name']);
+        return response()->json($categories);
     }
 
     public function store(Request $request)
     {
-        // TODO: implemente o método store
+        $category = Category::firstOrCreate($request->all());
+        return response()->json(compact('category'), Response::HTTP_CREATED);
     }
 
-    public function show(Transaction $transaction)
+    public function show(Category $category)
     {
-        // TODO: implemente o método show
+        return response()->json(compact('category'), Response::HTTP_OK);
     }
 
-    public function update(Transaction $transaction, Request $request)
+    public function update(Category $category, Request $request)
     {
-        // TODO: implemente o método update
+        $category->update($request->all());
+        $category->save();
+        return response()->json(compact('category'), Response::HTTP_OK);
     }
 
-    public function destroy(Transaction $transaction)
+    public function destroy(Category $category)
     {
-        // TODO: implemente o método destroy
+        $category->delete();
+        return response()->noContent(Response::HTTP_OK);
     }
-
 }

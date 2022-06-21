@@ -3,11 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\Wallet;
-use Database\Factories\TransactionFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
