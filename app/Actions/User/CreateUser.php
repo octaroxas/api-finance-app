@@ -3,6 +3,7 @@
 namespace App\Actions\User;
 
 use App\Models\User;
+use App\Models\Wallet;
 use Laravolt\Avatar\Facade as Avatar;
 
 class CreateUser
@@ -19,6 +20,11 @@ class CreateUser
         Avatar::create($name)->setDimension(256)->setFontSize(128)->save(storage_path('app/public/' . $path), 100);
 
         $user->account()->create(['name' => $name, 'avatar' => $path]);
+
+        Wallet::create([
+            'name' => 'Carteira Padrão',
+            'account_id' => $user->account->id
+        ]);
 
         return $user;
     }
